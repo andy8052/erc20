@@ -135,7 +135,7 @@ contract MetalFunFactory is Ownable, ERC721Holder {
         bool tokenIsLessThanWeth = token < weth;
         (address token0, address token1) = tokenIsLessThanWeth ? (token, weth) : (weth, token);
         (int24 tickLower, int24 tickUpper) =
-            tokenIsLessThanWeth ? (int24(-195800), int24(0)) : (int24(0), int24(195800));
+            tokenIsLessThanWeth ? (int24(-208400), int24(0)) : (int24(0), int24(208400));
         (uint256 amt0, uint256 amt1) = tokenIsLessThanWeth
             ? (uint256(TOTAL_SUPPLY), uint256(0))
             : (uint256(0), uint256(TOTAL_SUPPLY));
@@ -149,9 +149,9 @@ contract MetalFunFactory is Ownable, ERC721Holder {
             tickUpper: tickUpper,
             amount0Desired: amt0,
             // allow for a bit of slippage
-            amount0Min: amt0 - (amt0 / 1e18),
+            amount0Min: amt0 - (amt0 / 1e8),
             amount1Desired: amt1,
-            amount1Min: amt1 - (amt1 / 1e18),
+            amount1Min: amt1 - (amt1 / 1e8),
             deadline: block.timestamp,
             recipient: address(this)
         });
@@ -159,7 +159,7 @@ contract MetalFunFactory is Ownable, ERC721Holder {
         // ETH price @ $3228
         // wanted token value = $0,0000029
         initialSqrtPrice =
-            tokenIsLessThanWeth ? 2374716772012394972971008 : 2643305428826910585518143993544704;
+            tokenIsLessThanWeth ? 2363603296768335609331712 : 2655734041312737263542517807185920;
     }
 
     function _deploy(string memory _name, string memory _symbol)
