@@ -11,6 +11,7 @@ import {Clones} from "@openzeppelin/contracts/proxy/Clones.sol";
 import {console} from "forge-std/console.sol";
 
 contract MetalFunFactory is Ownable, ERC721Holder {
+    // the total supply of the token
     uint256 immutable TOTAL_SUPPLY = 923_500_000 ether;
 
     error UNSUPPORTED_CHAIN();
@@ -156,8 +157,6 @@ contract MetalFunFactory is Ownable, ERC721Holder {
             recipient: address(this)
         });
 
-        // ETH price @ $3228
-        // wanted token value = $0,0000029
         initialSqrtPrice =
             tokenIsLessThanWeth ? 2363603296768335609331712 : 2655734041312737263542517807185920;
     }

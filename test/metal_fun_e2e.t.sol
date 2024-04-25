@@ -9,35 +9,6 @@ import {InstantLiquidityToken} from "../src/InstantLiquidityToken.sol";
 import {MetalFunFactory, INonfungiblePositionManager} from "../src/MetalFunFactory.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
-// setting up a wrapper contract to test the internal function
-
-// contract TestableTokenFactoryV3 is TokenFactoryV3 {
-//     constructor(address _owner) TokenFactoryV3(_owner) {}
-
-//     function testDeployWithManualParams(
-//         string memory _name,
-//         string memory _symbol,
-//         int24 _tick0,
-//         int24 _tick1,
-//         uint256 _poolAmount,
-//         uint256 _ownerAmount,
-//         uint256 _initialPricePerEth,
-//         address _recipient
-//     ) public returns (InstantLiquidityToken, uint256) {
-//         return _deployWithManualParams(
-//             _name,
-//             _symbol,
-//             _tick0,
-//             _tick1,
-//             _poolAmount,
-//             _ownerAmount,
-//             _initialPricePerEth,
-//             _recipient
-//         );
-//     }
-// }
-
-// test contract TokenFactoryV3
 contract TestMetalFunFactory is Test {
     MetalFunFactory internal metalFunFactory;
     address internal owner = address(0xB0b);
@@ -46,12 +17,11 @@ contract TestMetalFunFactory is Test {
     address internal rando = address(0x5EeC);
 
     function setUp() public {
-        // creates new instance of the metalFunFactory contract
         metalFunFactory = new MetalFunFactory(owner);
     }
 
     function _test() internal {
-        // @spec can deploy a token
+        // @spec deploy a token
         vm.expectEmit({checkTopic1: false, checkTopic2: false, checkTopic3: false, checkData: true});
         emit MetalFunFactory.TokenFactoryDeployment(
             address(0), 0, address(0), "InstantLiquidityToken", "ILT"
