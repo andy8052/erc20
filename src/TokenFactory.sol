@@ -161,7 +161,7 @@ contract TokenFactory is Ownable, ERC721Holder {
         bool tokenIsLessThanWeth = token < weth;
         (address token0, address token1) = tokenIsLessThanWeth ? (token, weth) : (weth, token);
         (int24 tickLower, int24 tickUpper) =
-            tokenIsLessThanWeth ? (int24(-220400), int24(0)) : (int24(0), int24(220400));
+            tokenIsLessThanWeth ? (int24(-191200), int24(-46000)) : (int24(46000), int24(191200));
         (uint256 amt0, uint256 amt1) = tokenIsLessThanWeth
             ? (uint256(POOL_AMOUNT), uint256(0))
             : (uint256(0), uint256(POOL_AMOUNT));
@@ -175,15 +175,15 @@ contract TokenFactory is Ownable, ERC721Holder {
             tickUpper: tickUpper,
             amount0Desired: amt0,
             // allow for a bit of slippage
-            amount0Min: amt0 - (amt0 / 1e18),
+            amount0Min: 0,
             amount1Desired: amt1,
-            amount1Min: amt1 - (amt1 / 1e18),
+            amount1Min: 0,
             deadline: block.timestamp,
             recipient: address(this)
         });
 
         initialSqrtPrice =
-            tokenIsLessThanWeth ? 1252685732681638336686364 : 5010664478791732988152496286088527;
+            tokenIsLessThanWeth ? 795020455900562128462663 : 7895522296060008166169236686470945;
     }
 
     function _deploy(address _recipient, string memory _name, string memory _symbol)
@@ -232,7 +232,7 @@ contract TokenFactory is Ownable, ERC721Holder {
         (uint256 lpTokenId,,,) = nonfungiblePositionManager.mint({params: mintParams});
 
         // transfer the owner allocation
-        InstantLiquidityToken(token).transfer({to: _recipient, value: OWNER_ALLOCATION});
+        // InstantLiquidityToken(token).transfer({to: _recipient, value: POOL_AMOUNT});
 
         return (InstantLiquidityToken(token), lpTokenId);
     }
