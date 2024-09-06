@@ -231,9 +231,6 @@ contract TokenFactory is Ownable, ERC721Holder {
         // mint the position
         (uint256 lpTokenId,,,) = nonfungiblePositionManager.mint({params: mintParams});
 
-        // transfer the owner allocation
-        // InstantLiquidityToken(token).transfer({to: _recipient, value: POOL_AMOUNT});
-
         return (InstantLiquidityToken(token), lpTokenId);
     }
 
