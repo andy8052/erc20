@@ -73,29 +73,6 @@ contract TokenFactory is Ownable, ERC721Holder {
 
     constructor(address _owner) Ownable(_owner) {
         uint256 chainId = block.chainid;
-
-        if (
-            // mainnet
-            chainId != 1
-            // goerli
-            && chainId != 5
-            // arbitrum
-            && chainId != 42161
-            // optimism
-            && chainId != 10
-            // polygon
-            && chainId != 137
-            // bnb
-            && chainId != 56
-            // base
-            && chainId != 8453
-            // base sepolia
-            && chainId != 84532
-            // sepolia
-            && chainId != 11155111
-            // zora
-            && chainId != 7777777
-        ) revert UNSUPPORTED_CHAIN();
     }
 
     /**
